@@ -128,6 +128,7 @@ public void search(String searchTerm_) {
     previousSearch = searchTerm;
     searched = true;
     searchTerm = "";
+    //dotMatrix();
   }
 }
 
@@ -231,12 +232,22 @@ void dotMatrix() {
   madepg = false;
   println("Treating for " + previousSearch);
   int p = 10;
+  int rr = (random(1) < 0.5) ? 0 : 255;
+  int rg = (random(1) < 0.5) ? 0 : 255;
+  int rb = (random(1) < 0.5) ? 0 : 255;
   bgImage.loadPixels();
   pg.beginDraw();
   pg.noStroke();
-  pg.fill(0);
+  pg.fill(rr, rg, rb);
   pg.rect(0, 0, pg.width, pg.height);
-  pg.fill(255);
+  if (rr == rg && rg == rb) {
+    if (rr == 0) pg.fill(255);
+    else pg.fill(0);
+  } 
+  else {
+    int f = (random(1) < 0.5) ? 0 : 255;
+    pg.fill(f);
+  }
   pg.translate(padding, padding);
   for (int j=0; j<bgImage.width; j+=(p-2)) {
     for (int k=0; k<bgImage.height; k+=(p-2)) {
@@ -256,7 +267,7 @@ void dotMatrix() {
   pg.textAlign(LEFT);
   pg.text(getDefinition(), pg.width/2, ih+padding+padding/4, (iw/2)-padding, iw/2);
   pg.endDraw();
-  pg.save("New/"+previousSearch+".png");
+  pg.save("NewNew/"+previousSearch+".png");
   searched = false;
   madepg = true;
 }
